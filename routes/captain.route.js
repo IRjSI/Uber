@@ -1,7 +1,7 @@
 import express from "express";
 import { body } from "express-validator";
-import { authCaptain } from "../middlewares/auth.middleware";
-import { getCaptainProfile, logoutCaptain } from "../controllers/captain.controller";
+import { authCaptain } from "../middlewares/auth.middleware.js";
+import { getCaptainProfile, loginCaptain, logoutCaptain, registerCaptain } from "../controllers/captain.controller.js";
 
 const captainRouter = express.Router();
 

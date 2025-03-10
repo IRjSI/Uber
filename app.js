@@ -22,4 +22,4 @@ app.get('/', (req,res) => {
 app.use('/users', userRouter) 
 app.use('/captains', captainRouter)
 
-app.listen(3000);
+app.listen(3001);

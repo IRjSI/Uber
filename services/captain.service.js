@@ -1,4 +1,4 @@
-import { captainModel } from "../model/captain.model";
+import { captainModel } from "../model/captain.model.js";
 
 export async function createCaptain({ 
     firstname, 

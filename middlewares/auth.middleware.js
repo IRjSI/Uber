@@ -34,8 +34,10 @@ export async function authCaptain(req,res,next) {
     }
 
     const isBlacklistToken = BlackListTokenModel.findOne({token})
+    //console.log(isBlacklistToken);
+    
     if (isBlacklistToken) {
-        return res.status(401).json({ message: 'unautho'})
+        return res.status(401).json({ message: 'blacklisted'})
     }
 
     try {

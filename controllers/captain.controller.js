@@ -1,7 +1,7 @@
 import { validationResult } from "express-validator";
-import { captainModel } from "../model/captain.model";
-import { createCaptain } from "../services/captain.service";
-import { BlackListTokenModel } from "../model/blackListToken.model";
+import { captainModel } from "../model/captain.model.js";
+import { createCaptain } from "../services/captain.service.js";
+import { BlackListTokenModel } from "../model/blackListToken.model.js";
 
 export async function registerCaptain(req,res,next) {
     const errors = validationResult(req);
@@ -60,11 +60,11 @@ export async function loginCaptain(req,res,next) {
     res.status(200).json({ token, captain });
 }
 
-export async function getCaptainProfile(req,res,next) {
-    res.status(200).json(req.user);
+export async function getCaptainProfile(req,res) {
+    res.status(200).json(req.captain);
 }
 
-export async function logoutCaptain(req,res,next) {
+export async function logoutCaptain(req,res) {
     const token = req.cookies.token || req.headers.authorization.split(' ')[1];
 
     await BlackListTokenModel.create({token});
