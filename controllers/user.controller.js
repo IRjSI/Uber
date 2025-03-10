@@ -1,6 +1,8 @@
 import { validationResult } from "express-validator";
 import { userModel } from "../model/user.model.js";
 import { createUser } from "../services/user.service.js";
+import cookie from "cookie-parser";
+import { BlackListTokenModel } from "../model/blackListToken.model.js";
 
 export async function registerUser(req,res,next) {
     const errors = validationResult(req);
@@ -46,5 +48,19 @@ export async function loginUser(req,res,next) {
 
     const token = user.generateAuthToken();
 
+    res.cookie('token', token); // set token in cookie
+
     res.status(200).json({ token,user })
+}
+
+export async function getuserProfile(req,res,next) {
+    res.status(200).json(req.user); // from auth middleware
+}
+
+export async function logoutUser(req,res,next) {
+    res.clearCookie('token');
+    const token = req.cookies.token || req.headers.authorization.split(' ')[1] // now blacklist this
+    await BlackListTokenModel.create({ token });
+
+    res.status(200).json({ message: 'Logged out' })
 }
